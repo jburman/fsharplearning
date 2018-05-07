@@ -1,4 +1,9 @@
-﻿open System
+﻿// This is a very simple (and not particularly efficient) JSON tokenizer that I created 
+// simply for the purposes of having something to write while learning F#.
+// It's not intended for real world use!
+// A similar implementation in C# (written a number of years ago) can be found here:
+// https://github.com/jburman/ZeroG.JSON/blob/master/ZeroG.JSON/JSONTokenizer.cs
+open System
 open System.Globalization
 open System.IO
 open System.Text
@@ -129,9 +134,8 @@ let readToken (reader: StreamReader) (input: char) : Token =
 let main argv =
     
     let path = argv.[0]
-    let accum = new StringBuilder()
 
-    let tokenize (reader : StreamReader) (accum: StringBuilder) =
+    let tokenize (reader : StreamReader) =
         seq {
             while not reader.EndOfStream do
                 let input = char(reader.Peek())
@@ -142,6 +146,6 @@ let main argv =
         } : seq<Token>
 
     use reader = new StreamReader(File.OpenRead(path))
-    tokenize reader accum |> Seq.iter (fun t -> printfn "%A" t)
+    tokenize reader |> Seq.iter (fun t -> printfn "%A" t)
 
     0
