@@ -6,7 +6,6 @@
 open System
 open System.Globalization
 open System.IO
-open System.Text
 
 type TokenType =
     | ObjectStart
